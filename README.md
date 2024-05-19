@@ -178,3 +178,52 @@ docker compose -p kitchenpos up -d
 | 테이블 치우기 | clear            | 테이블 이용을 마치고 치우는 것을 의미한다. |
 
 ## 모델링
+
+### 상품
+- `Product`는 `name`과 `price`를 갖는다.
+  - `name`에는 `비속어`가 포함될 수 없다.
+  - `price`는 `0원 이상`이여야 한다.
+- `price`는 변경할 수 있다.
+
+### 메뉴
+- `menu`를 생성할 수 있다.
+  - `menu`는 1 개 이상의 `product`로 이루어져 있다.
+  - `menu`에 속한 상품의 수량은 0개 이상이어야 한다.
+  - `menu`는 `display status`를 갖는다.
+  - `name`은 `비속어`가 포함될 수 없다.
+  - `menu price`는 메뉴의 가격을 나타내며, 속해있는 상품들의 총 가격의 합보다 작거나 같아야 한다.
+- `menu price`를 수정할 수 있다.
+  - `menu price`는 0원 이상이어야 한다.
+- `display status`를 수정할 수 있다.
+  - `displayed`는 메뉴가 전시된 상태이다.
+  - `undisplayed`는 메뉴기 비전시된 상태이다.
+- `menu`의 전체 목록을 조회할 수 있다.
+
+### 주문
+- `order`을 생성할 수 있다.
+- `order`의 유형은 `delivery`, `takeout`, `eat in` 유형이 있다.
+- `order`는 `order status`를 갖는다.
+- `order line item`은 주문에 1개 이상 존재한다.
+  - `주문 상품`
+- `order status`는 `waiting` -> `accepted` -> `served` -> `delivering` -> `deliveryed` -> `complete`의 순서로만 변경 가능하다.
+- `order`의 전체 목록을 조회할 수 있다.
+
+### 베달 주문
+- `배달 주문`을 수락하면, `배달 대행사`를 호출한다.
+- `배달 주문`은 `배달 주소`가 존재해야 한다.
+- `배달 주문`은 `order line item`의 `quantity`가 0개 이상 존재해야 한다.
+- `order status`는 `waiting` -> `accepted` -> `served` -> `delivering` -> `deliveryed` -> `complete` 순서로 변경된다.
+- 
+
+### 포장 주문
+- `포장 주문`은 `order line item`의 `quantity`가 0개 이상 존재해야 한다.
+- `order status`는 `waiting` -> `accepted` -> `served` -> `complete` 순서로 변경된다.
+
+### 매장 주문
+- `매장 주문`은 `order table`을 점유하고 있는 상태여야 주문이 가능하다.
+- `order status`는 `waiting` -> `accepted` -> `served` -> `complete` 순서로 변경된다.
+  - `매장 주문`이 `complete` 상태가 되며, `order table`이 `clear` 된다.
+- `order table`은 `name`과 `손님 수`, `table status`를 갖는다.
+- `order table`에 `sit`, `clear` 할 수 있다.
+- `order table`에 있는 `손님 수` 변경이 가능하다.
+- `table status`은 `unoccupied table`와 `occupied table` 상태가 존재한다.
