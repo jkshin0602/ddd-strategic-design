@@ -107,16 +107,17 @@ docker compose -p kitchenpos up -d
 
 ### 메뉴
 
-| 한글명           | 영문명                   | 설명                                               |
-|---------------|-----------------------|--------------------------------------------------|
-| 메뉴            | menu                  | 키친 포스에서 주문할 수 있는 메뉴를 나타낸다. 1개 이상의 상품들로 이루어져 있다.  |
-| 메뉴 전시 상태      | display status        | 메뉴 전시 상태를 나타낸다. 전시 상태는 변경이 가능하다.                 |
-| 메뉴 전시         | displayed             | 메뉴가 전시된 상태를 나타낸다.                                |
-| 메뉴 비전시        | undisplayed           | 메뉴가 비전시된 상태를 나타낸다.                               |
+| 한글명           | 영문명                   | 설명                                                |
+|---------------|-----------------------|---------------------------------------------------|
+| 메뉴            | menu                  | 키친 포스에서 주문할 수 있는 메뉴를 나타낸다. 1개 이상의 상품들로 이루어져 있다.   |
+| 메뉴 그룹         | menu group            | 메뉴의 그룹을 나타낸다.                                                 |
+| 메뉴 전시 상태      | display status        | 메뉴 전시 상태를 나타낸다. 전시 상태는 변경이 가능하다.                  |
+| 메뉴 전시         | displayed             | 메뉴가 전시된 상태를 나타낸다.                                 |
+| 메뉴 비전시        | undisplayed           | 메뉴가 비전시된 상태를 나타낸다.                                |
 | 메뉴 가격         | menu price            | 메뉴의 가격을 나타낸다. 메뉴의 가격은 속해있는 상품들의 총 가격의 합과 다를 수 있다. |
-| 메뉴에 속한 상품     | menu product          | 메뉴에 속한 상품을 나타낸다. 메뉴에는 1개 이상의 menu product가 존재한다. |
-| 메뉴에 속한 상품의 수량 | menu product quantity | 메뉴에 속한 상품의 개수를 나타낸다.                             |
-| 비속어           | slang                 | 비속어를 지칭한다.                                       |
+| 메뉴에 속한 상품     | menu product          | 메뉴에 속한 상품을 나타낸다. 메뉴에는 1개 이상의 menu product가 존재한다.  |
+| 메뉴에 속한 상품의 수량 | menu product quantity | 메뉴에 속한 상품의 개수를 나타낸다.                              |
+| 비속어           | slang                 | 비속어를 지칭한다.                                        |
 
 ### 주문 
 
@@ -180,29 +181,30 @@ docker compose -p kitchenpos up -d
 ## 모델링
 
 ### 상품
-- `Product`는 `name`과 `price`를 갖는다.
-  - `name`에는 `slang`이 포함될 수 없다.
+- `product`는 `product name`과 `product price`를 반드시 가져야 한다.
+  - `product name`에는 `slang`이 포함될 수 없다.
   - `price`는 0원 이상이여야 한다.
-- `price`는 변경할 수 있다.
-  - `price`를 변경하면 해당 `product`가 속한 `menu`들의 `display status`를 다시 설정한다.
+- `product price`는 변경할 수 있다.
+  - `product price`를 변경하면 해당 `product`가 속한 `menu`들의 `display status`를 다시 설정한다.
 
 ### 메뉴
 - `menu`를 생성할 수 있다.
   - `menu`는 1 개 이상의 `product`로 이루어져 있다.
   - `menu`에 속한 상품의 수량은 0개 이상이어야 한다.
   - `menu`는 `display status`를 갖는다.
-  - `name`은 `slang`이 포함될 수 없다.
-  - `menu price`는 메뉴의 가격을 나타내며, 속해있는 상품들의 총 가격의 합보다 작거나 같아야 한다.
+  - `name`은 반드시 있어야 하고, `slang`이 포함될 수 없다.
+  - `menu price`는 속해있는 상품들의 총 가격의 합보다 작거나 같아야 한다.
 - `menu price`를 수정할 수 있다.
   - `menu price`는 0원 이상이어야 한다.
 - `display status`를 수정할 수 있다.
-  - `displayed`는 메뉴가 전시된 상태이다.
-  - `undisplayed`는 메뉴기 비전시된 상태이다.
+  - `displayed` 상태로 변경 시, 메뉴에 속해있는 상품들의 총 가격의 합보다 작거나 같아야 변경된다.
+  - `undisplayed` 상태로 변경 시, 추가 검증을 하지 않고, 변경한다.
 - `menu`의 전체 목록을 조회할 수 있다.
+- `menu group`은 반드시 존재해야한다. 
 
 ### 주문
 - `order`을 생성할 수 있다.
-- `order`의 유형은 `delivery`, `takeout`, `eat in` 유형이 있다.
+- `order type`은 반드시 존재해야 한다.
 - `order`는 `order status`를 갖는다.
 - `order line item`은 주문에 1개 이상 존재한다.
 - `order`의 전체 목록을 조회할 수 있다.
@@ -224,4 +226,4 @@ docker compose -p kitchenpos up -d
 - `order table`은 `name`과 `num of guest`, `table status`를 갖는다.
 - `order table`에 `sit`, `clear` 할 수 있다.
 - `order table`에 있는 `num of guest` 변경이 가능하다.
-- `table status`은 `unoccupied table`와 `occupied table` 상태가 존재한다.
+- `table status`는 변경 가능하다.
