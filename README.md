@@ -184,6 +184,7 @@ docker compose -p kitchenpos up -d
   - `name`에는 `slang`이 포함될 수 없다.
   - `price`는 0원 이상이여야 한다.
 - `price`는 변경할 수 있다.
+  - `price`를 변경하면 해당 `product`가 속한 `menu`들의 `display status`를 다시 설정한다.
 
 ### 메뉴
 - `menu`를 생성할 수 있다.
