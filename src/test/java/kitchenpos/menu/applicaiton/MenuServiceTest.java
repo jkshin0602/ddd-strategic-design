@@ -1,6 +1,6 @@
 package kitchenpos.menu.applicaiton;
 
-import kitchenpos.application.FakePurgomalumClient;
+import kitchenpos.common.purgomalum_client.FakePurgomalumClient;
 import kitchenpos.menu.domain.repository.InMemoryMenuGroupRepository;
 import kitchenpos.menu.domain.repository.InMemoryMenuRepository;
 import kitchenpos.product.domain.repository.InMemoryProductRepository;
@@ -10,7 +10,7 @@ import kitchenpos.menu.domain.MenuProduct;
 import kitchenpos.menu.domain.repository.MenuRepository;
 import kitchenpos.product.domain.Product;
 import kitchenpos.product.domain.repository.ProductRepository;
-import kitchenpos.infra.PurgomalumClient;
+import kitchenpos.common.purgomalum_client.PurgomalumClient;
 import kitchenpos.menu.application.MenuService;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -29,11 +29,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
-import static kitchenpos.Fixtures.INVALID_ID;
-import static kitchenpos.Fixtures.menu;
-import static kitchenpos.Fixtures.menuGroup;
-import static kitchenpos.Fixtures.menuProduct;
-import static kitchenpos.Fixtures.product;
+import static kitchenpos.util.Fixtures.INVALID_ID;
+import static kitchenpos.util.Fixtures.menu;
+import static kitchenpos.util.Fixtures.menuGroup;
+import static kitchenpos.util.Fixtures.menuProduct;
+import static kitchenpos.util.Fixtures.product;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;

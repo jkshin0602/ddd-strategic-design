@@ -1,6 +1,5 @@
 package kitchenpos.order.application;
 
-import kitchenpos.order.application.OrderTableService;
 import kitchenpos.order.domain.repository.InMemoryOrderRepository;
 import kitchenpos.order.domain.repository.InMemoryOrderTableRepository;
 import kitchenpos.order.domain.repository.OrderRepository;
@@ -17,8 +16,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 import java.util.UUID;
 
-import static kitchenpos.Fixtures.order;
-import static kitchenpos.Fixtures.orderTable;
+import static kitchenpos.util.Fixtures.order;
+import static kitchenpos.util.Fixtures.orderTable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;

@@ -1,9 +1,8 @@
 package kitchenpos.order.application;
 
-import kitchenpos.application.FakeKitchenridersClient;
+import kitchenpos.common.kichenriders_client.FakeKitchenridersClient;
 import kitchenpos.menu.domain.repository.InMemoryMenuRepository;
 import kitchenpos.menu.domain.repository.MenuRepository;
-import kitchenpos.order.application.OrderService;
 import kitchenpos.order.domain.Order;
 import kitchenpos.order.domain.OrderLineItem;
 import kitchenpos.order.domain.repository.InMemoryOrderRepository;
@@ -31,11 +30,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-import static kitchenpos.Fixtures.INVALID_ID;
-import static kitchenpos.Fixtures.menu;
-import static kitchenpos.Fixtures.menuProduct;
-import static kitchenpos.Fixtures.order;
-import static kitchenpos.Fixtures.orderTable;
+import static kitchenpos.util.Fixtures.INVALID_ID;
+import static kitchenpos.util.Fixtures.menu;
+import static kitchenpos.util.Fixtures.menuProduct;
+import static kitchenpos.util.Fixtures.order;
+import static kitchenpos.util.Fixtures.orderTable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
